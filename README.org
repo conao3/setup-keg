@@ -28,16 +28,15 @@
 - Initiarize Keg
 
 * Usage
-~Keg~ depends ~Python~ and ~Emacs~.
-You should setup these, respectively, before use ~setup-keg~.
+~Keg~ depends ~Emacs~.
+You should setup, before use ~setup-keg~.
 
-This mechanism has a merit to be able to use specified version of ~Python~ and ~Emacs~.
+This mechanism has a merit to be able to use specified version of ~Emacs~.
 
 ~setup-keg~'s version accepts ~snapshot~ and ~version code~. (see Keg [[https://github.com/keg/keg/releases][release]] page)
 
 And refference these action.yml
 - [[https://github.com/purcell/setup-emacs/blob/master/action.yml][setup-emacs/action.yml]]
-- [[https://github.com/actions/setup-python/blob/master/action.yml][setup-python/action.yml]]
 - [[https://github.com/conao3/setup-keg/blob/master/action.yml][setup-keg/action.yml]]
 
 ** Basic
@@ -47,10 +46,6 @@ And refference these action.yml
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v1
-        - uses: actions/setup-python@v1.1.1
-          with:
-            python-version: '3.6'
-            architecture: 'x64'
         - uses: purcell/setup-emacs@master
           with:
             version: '26.3'
@@ -65,7 +60,6 @@ And refference these action.yml
 
 This example is testing your package in below environment.
 - Emacs: ~26.3~
-- Python: ~3.6 (x64)~
 - Keg: ~snapshot~ (HEAD)
 
 ** Matrix testing
@@ -81,15 +75,9 @@ This example is testing your package in below environment.
             - '26.3'
             - 'snapshot'
           keg_version:
-            - '0.8.0'
-            - '0.8.4'
             - 'snapshot'
       steps:
         - uses: actions/checkout@v1
-        - uses: actions/setup-python@v1.1.1
-          with:
-            python-version: '3.6'
-            architecture: 'x64'
         - uses: purcell/setup-emacs@master
           with:
             version: ${{ matrix.emacs_version }}
@@ -104,8 +92,7 @@ This example is testing your package in below environment.
 
 This example is testing your package in below environment.
 - Emacs: ~26.1~, ~26.2~, ~26.3~
-- Python: ~3.6 (x64)~
-- Keg: ~0.8.0~, ~0.8.4~, ~snapshot~ (HEAD)
+- Keg: ~snapshot~ (HEAD)
 
 ** Simplest
 #+begin_src yaml
@@ -114,7 +101,6 @@ This example is testing your package in below environment.
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v1
-        - uses: actions/setup-python@v1.1.1
         - uses: purcell/setup-emacs@master
           with:
             version: '26.3'
@@ -127,7 +113,6 @@ This example is testing your package in below environment.
 
 This example is testing your package in below environment.
 - Emacs: ~26.3~
-- Python: ~3.x (x64)~
 - Keg: ~snapshot~ (HEAD)
 
 * Information
