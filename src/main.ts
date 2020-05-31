@@ -29,11 +29,11 @@ async function run() {
     core.endGroup();
 
     core.startGroup('Install dependency');
-    await exec.exec('keg', ['--version']);
+    await exec.exec('keg', ['version']);
     core.endGroup();
 
     // show Keg version
-    await exec.exec('keg', ['--version']);
+    await exec.exec('keg', ['version']);
   } catch (err) {
     core.setFailed(err.message);
   }
