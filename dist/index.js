@@ -1017,7 +1017,7 @@ function run() {
             ]);
             yield exec.exec('unzip', [`${tmp}/${archive_name}`, '-d', `${tmp}`]);
             const options = { recursive: true, force: false };
-            yield io.mv(`${tmp}/keg-${version}.el`, `${home}/.keg`, options);
+            yield io.mv(`${tmp}/keg.el-${version}`, `${home}/.keg`, options);
             core.addPath(`${home}/.keg/bin`);
             core.endGroup();
             core.startGroup('Install dependency');

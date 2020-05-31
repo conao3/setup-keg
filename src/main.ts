@@ -24,7 +24,7 @@ async function run() {
     ]);
     await exec.exec('unzip', [`${tmp}/${archive_name}`, '-d', `${tmp}`]);
     const options = {recursive: true, force: false};
-    await io.mv(`${tmp}/keg-${version}.el`, `${home}/.keg`, options);
+    await io.mv(`${tmp}/keg.el-${version}`, `${home}/.keg`, options);
     core.addPath(`${home}/.keg/bin`);
     core.endGroup();
 
