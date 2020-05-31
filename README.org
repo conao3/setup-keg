@@ -1,11 +1,11 @@
 #+author: conao
 #+date: <2019-11-23 Sat>
 
-[[https://github.com/conao3/setup-cask][https://raw.githubusercontent.com/conao3/files/master/blob/headers/png/setup-cask.png]]
-[[https://github.com/conao3/setup-cask/blob/master/LICENSE][https://img.shields.io/github/license/conao3/setup-cask.svg?style=flat-square]]
-[[https://github.com/conao3/setup-cask/releases][https://img.shields.io/github/tag/conao3/setup-cask.svg?style=flat-square]]
-[[https://github.com/conao3/setup-cask/actions][https://img.shields.io/github/workflow/status/conao3/setup-cask/Main%20workflow.svg?label=GitHub%20Actions&logo=github&style=flat-square]]
-[[https://app.codacy.com/project/conao3/setup-cask/dashboard][https://img.shields.io/codacy/grade/1108333059ce4bc7a833a42a4eaf417c.svg?logo=codacy&style=flat-square]]
+[[https://github.com/conao3/setup-keg][https://raw.githubusercontent.com/conao3/files/master/blob/headers/png/setup-keg.png]]
+[[https://github.com/conao3/setup-keg/blob/master/LICENSE][https://img.shields.io/github/license/conao3/setup-keg.svg?style=flat-square]]
+[[https://github.com/conao3/setup-keg/releases][https://img.shields.io/github/tag/conao3/setup-keg.svg?style=flat-square]]
+[[https://github.com/conao3/setup-keg/actions][https://img.shields.io/github/workflow/status/conao3/setup-keg/Main%20workflow.svg?label=GitHub%20Actions&logo=github&style=flat-square]]
+[[https://app.codacy.com/project/conao3/setup-keg/dashboard][https://img.shields.io/codacy/grade/1108333059ce4bc7a833a42a4eaf417c.svg?logo=codacy&style=flat-square]]
 [[https://www.patreon.com/conao3][https://img.shields.io/badge/patreon-become%20a%20patron-orange.svg?logo=patreon&style=flat-square]]
 [[https://twitter.com/conao_3][https://img.shields.io/badge/twitter-@conao__3-blue.svg?logo=twitter&style=flat-square]]
 [[https://join.slack.com/t/conao3-support/shared_invite/enQtNjUzMDMxODcyMjE1LTA4ZGRmOWYwZWE3NmE5NTkyZjk3M2JhYzU2ZmRkMzdiMDdlYTQ0ODMyM2ExOGY0OTkzMzZiMTNmZjJjY2I5NTM][https://img.shields.io/badge/chat-on_slack-blue.svg?logo=slack&style=flat-square]]
@@ -22,23 +22,23 @@
   - [[#contributors][Contributors]]
 
 * Description
-~setup-cask~ prepare Cask for your workflow.
-- Fetch specified Cask in your workflow ~$HOME~ (such as ~/home/runner/.cask~).
-- Add ~/home/runner/.cask/bin~ to your workflow ~$PATH~
-- Initiarize Cask
+~setup-keg~ prepare Keg for your workflow.
+- Fetch specified Keg in your workflow ~$HOME~ (such as ~/home/runner/.keg~).
+- Add ~/home/runner/.keg/bin~ to your workflow ~$PATH~
+- Initiarize Keg
 
 * Usage
-~Cask~ depends ~Python~ and ~Emacs~.
-You should setup these, respectively, before use ~setup-cask~.
+~Keg~ depends ~Python~ and ~Emacs~.
+You should setup these, respectively, before use ~setup-keg~.
 
 This mechanism has a merit to be able to use specified version of ~Python~ and ~Emacs~.
 
-~setup-cask~'s version accepts ~snapshot~ and ~version code~. (see Cask [[https://github.com/cask/cask/releases][release]] page)
+~setup-keg~'s version accepts ~snapshot~ and ~version code~. (see Keg [[https://github.com/keg/keg/releases][release]] page)
 
 And refference these action.yml
 - [[https://github.com/purcell/setup-emacs/blob/master/action.yml][setup-emacs/action.yml]]
 - [[https://github.com/actions/setup-python/blob/master/action.yml][setup-python/action.yml]]
-- [[https://github.com/conao3/setup-cask/blob/master/action.yml][setup-cask/action.yml]]
+- [[https://github.com/conao3/setup-keg/blob/master/action.yml][setup-keg/action.yml]]
 
 ** Basic
 #+begin_src yaml
@@ -55,7 +55,7 @@ And refference these action.yml
           with:
             version: '26.3'
 
-        - uses: conao3/setup-cask@master
+        - uses: conao3/setup-keg@master
           with:
             version: 'snapshot'
 
@@ -66,7 +66,7 @@ And refference these action.yml
 This example is testing your package in below environment.
 - Emacs: ~26.3~
 - Python: ~3.6 (x64)~
-- Cask: ~snapshot~ (HEAD)
+- Keg: ~snapshot~ (HEAD)
 
 ** Matrix testing
 #+begin_src yaml
@@ -80,7 +80,7 @@ This example is testing your package in below environment.
             - '26.2'
             - '26.3'
             - 'snapshot'
-          cask_version:
+          keg_version:
             - '0.8.0'
             - '0.8.4'
             - 'snapshot'
@@ -94,7 +94,7 @@ This example is testing your package in below environment.
           with:
             version: ${{ matrix.emacs_version }}
 
-        - uses: conao3/setup-cask@master
+        - uses: conao3/setup-keg@master
           with:
             version: 'snapshot'
 
@@ -105,7 +105,7 @@ This example is testing your package in below environment.
 This example is testing your package in below environment.
 - Emacs: ~26.1~, ~26.2~, ~26.3~
 - Python: ~3.6 (x64)~
-- Cask: ~0.8.0~, ~0.8.4~, ~snapshot~ (HEAD)
+- Keg: ~0.8.0~, ~0.8.4~, ~snapshot~ (HEAD)
 
 ** Simplest
 #+begin_src yaml
@@ -118,7 +118,7 @@ This example is testing your package in below environment.
         - uses: purcell/setup-emacs@master
           with:
             version: '26.3'
-        - uses: conao3/setup-cask@master
+        - uses: conao3/setup-keg@master
 
         - name: Run tests
           run: make test
@@ -128,7 +128,7 @@ This example is testing your package in below environment.
 This example is testing your package in below environment.
 - Emacs: ~26.3~
 - Python: ~3.x (x64)~
-- Cask: ~snapshot~ (HEAD)
+- Keg: ~snapshot~ (HEAD)
 
 * Information
 ** Donation
@@ -151,7 +151,7 @@ Feel free to send PR!
 #+begin_example
   MIT
   Copyright (c) Naoya Yamashita - https://conao3.com
-  https://github.com/conao3/setup-cask/blob/master/LICENSE
+  https://github.com/conao3/setup-keg/blob/master/LICENSE
 #+end_example
 
 ** Author

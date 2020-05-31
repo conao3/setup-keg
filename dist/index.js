@@ -968,23 +968,23 @@ function run() {
             const archive_name = core.getInput('version') == 'snapshot' ? 'master.zip' : `v${version}.zip`;
             const home = os.homedir();
             const tmp = os.tmpdir();
-            core.startGroup('Fetch Cask');
+            core.startGroup('Fetch Keg');
             yield exec.exec('curl', [
                 '-L',
-                `https://github.com/cask/cask/archive/${archive_name}`,
+                `https://github.com/keg/keg/archive/${archive_name}`,
                 '-o',
                 `${tmp}/${archive_name}`
             ]);
             yield exec.exec('unzip', [`${tmp}/${archive_name}`, '-d', `${tmp}`]);
             const options = { recursive: true, force: false };
-            yield io.mv(`${tmp}/cask-${version}`, `${home}/.cask`, options);
-            core.addPath(`${home}/.cask/bin`);
+            yield io.mv(`${tmp}/keg-${version}`, `${home}/.keg`, options);
+            core.addPath(`${home}/.keg/bin`);
             core.endGroup();
             core.startGroup('Install dependency');
-            yield exec.exec('cask', ['--version']);
+            yield exec.exec('keg', ['--version']);
             core.endGroup();
-            // show Cask version
-            yield exec.exec('cask', ['--version']);
+            // show Keg version
+            yield exec.exec('keg', ['--version']);
         }
         catch (err) {
             core.setFailed(err.message);

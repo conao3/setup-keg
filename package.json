@@ -1,8 +1,8 @@
 {
-  "name": "setup-cask",
+  "name": "setup-keg",
   "version": "0.0.1",
   "private": true,
-  "description": "Github Action to set up a specific Cask version",
+  "description": "Github Action to set up a specific Keg version",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/conao3/setup-cask.git"
+    "url": "git+https://github.com/conao3/setup-keg.git"
   },
   "keywords": [
     "actions",

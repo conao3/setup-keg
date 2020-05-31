@@ -1,5 +1,5 @@
-name: 'Setup Cask'
-description: 'Install a specific Cask version for use in your workflow.'
+name: 'Setup Keg'
+description: 'Install a specific Keg version for use in your workflow.'
 author: 'Naoya Yamashita'
 inputs:
   version:

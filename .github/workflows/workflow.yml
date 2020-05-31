@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        cask_version:
+        keg_version:
           - '0.8.0'
           - '0.8.4'
           - 'snapshot'
@@ -26,4 +26,4 @@ jobs:
 
     - uses: ./
       with:
-        version: ${{ matrix.cask_version }}
+        version: ${{ matrix.keg_version }}
