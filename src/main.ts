@@ -18,7 +18,7 @@ async function run() {
     core.startGroup('Fetch Keg');
     await exec.exec('curl', [
       '-L',
-      `https://github.com/keg/keg/archive/${archive_name}`,
+      `https://github.com/conao3/keg.el/archive/${archive_name}`,
       '-o',
       `${tmp}/${archive_name}`
     ]);
