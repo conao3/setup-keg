@@ -7,8 +7,6 @@ jobs:
     strategy:
       matrix:
         keg_version:
-          - '0.8.0'
-          - '0.8.4'
           - 'snapshot'
     steps:
     - uses: actions/checkout@master
