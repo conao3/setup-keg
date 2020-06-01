@@ -28,10 +28,6 @@ async function run() {
     core.addPath(`${home}/.keg/bin`);
     core.endGroup();
 
-    core.startGroup('Install dependency');
-    await exec.exec('keg', ['version']);
-    core.endGroup();
-
     // show Keg version
     await exec.exec('keg', ['version']);
   } catch (err) {
