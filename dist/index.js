@@ -1020,9 +1020,6 @@ function run() {
             yield io.mv(`${tmp}/keg.el-${version}`, `${home}/.keg`, options);
             core.addPath(`${home}/.keg/bin`);
             core.endGroup();
-            core.startGroup('Install dependency');
-            yield exec.exec('keg', ['version']);
-            core.endGroup();
             // show Keg version
             yield exec.exec('keg', ['version']);
         }
