@@ -5,10 +5,10 @@
   "description": "Github Action to set up a specific Keg version",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "ncc build src/main.ts --minify",
+    "watch": "ncc build src/main.ts --watch",
     "format": "prettier --write **/*.ts",
     "format-check": "prettier --check **/*.ts",
-    "release": "tsc && ncc build src/main.ts && git add -f dist/",
     "test": "jest"
   },
   "repository": {
@@ -23,12 +23,12 @@
   "author": "Naoya Yamashita",
   "license": "MIT",
   "dependencies": {
+    "@actions/io": "^1.0.2",
     "@actions/core": "^1.2.4",
     "@actions/exec": "^1.0.4",
     "@actions/tool-cache": "^1.5.5"
   },
   "devDependencies": {
-    "@actions/io": "^1.0.2",
     "@types/jest": "^24.9.1",
     "@types/node": "^12.12.42",
     "@types/semver": "^6.2.1",
