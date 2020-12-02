@@ -9,18 +9,18 @@ jobs:
         keg_version:
           - 'snapshot'
     steps:
-    - uses: actions/checkout@master
-    - uses: actions/setup-node@master
+    - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
       with:
-        node-version: 10.x
+        node-version: 12.x
 
     - uses: purcell/setup-emacs@master
       with:
         version: 26.3
 
-    - run: npm install
-    - run: npm run format-check
-    - run: npm test
+    - run: yarn install
+    - run: yarn run format-check
+    - run: yarn test
 
     - uses: ./
       with:
