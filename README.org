@@ -1,146 +1,93 @@
-#+author: conao
-#+date: <2019-11-23 Sat>
+#+title: setup-keg
+#+author: conao3
 
 [[https://github.com/conao3/setup-keg][https://raw.githubusercontent.com/conao3/files/master/blob/headers/png/setup-keg.png]]
+
 [[https://github.com/conao3/setup-keg/blob/master/LICENSE][https://img.shields.io/github/license/conao3/setup-keg.svg?style=flat-square]]
 [[https://github.com/conao3/setup-keg/releases][https://img.shields.io/github/tag/conao3/setup-keg.svg?style=flat-square]]
-[[https://github.com/conao3/setup-keg/actions][https://img.shields.io/github/workflow/status/conao3/setup-keg/Main%20workflow.svg?label=GitHub%20Actions&logo=github&style=flat-square]]
-[[https://app.codacy.com/project/conao3/setup-keg/dashboard][https://img.shields.io/codacy/grade/1108333059ce4bc7a833a42a4eaf417c.svg?logo=codacy&style=flat-square]]
-[[https://www.patreon.com/conao3][https://img.shields.io/badge/patreon-become%20a%20patron-orange.svg?logo=patreon&style=flat-square]]
-[[https://twitter.com/conao_3][https://img.shields.io/badge/twitter-@conao__3-blue.svg?logo=twitter&style=flat-square]]
-[[https://join.slack.com/t/conao3-support/shared_invite/enQtNjUzMDMxODcyMjE1LTA4ZGRmOWYwZWE3NmE5NTkyZjk3M2JhYzU2ZmRkMzdiMDdlYTQ0ODMyM2ExOGY0OTkzMzZiMTNmZjJjY2I5NTM][https://img.shields.io/badge/chat-on_slack-blue.svg?logo=slack&style=flat-square]]
+[[https://github.com/conao3/setup-keg/actions][https://img.shields.io/github/actions/workflow/status/conao3/setup-keg/main.yml?style=flat-square]]
 
-* Table of Contents
-- [[#description][Description]]
-- [[#usage][Usage]]
-- [[#information][Information]]
-  - [[#donation][Donation]]
-  - [[#community][Community]]
-  - [[#contribution][Contribution]]
-  - [[#license][License]]
-  - [[#author][Author]]
-  - [[#contributors][Contributors]]
+A GitHub Action that installs [[https://github.com/keg/keg][Keg]] for your CI workflow.
 
-* Description
-~setup-keg~ prepare Keg for your workflow.
-- Fetch specified Keg in your workflow ~$HOME~ (such as ~/home/runner/.keg~).
-- Add ~/home/runner/.keg/bin~ to your workflow ~$PATH~
-- Initiarize Keg
+* Overview
 
-* Usage
-~Keg~ depends ~Emacs~.
-You should setup, before use ~setup-keg~.
+This action sets up Keg in your GitHub Actions workflow by:
 
-This mechanism has a merit to be able to use specified version of ~Emacs~.
+- Installing the specified version of Keg to =~/.keg=
+- Adding =~/.keg/bin= to your =PATH=
+- Initializing Keg for immediate use
 
-~setup-keg~'s version accepts ~snapshot~ and ~version code~. (see Keg [[https://github.com/keg/keg/releases][release]] page)
+* Quick Start
 
-And refference these action.yml
-- [[https://github.com/purcell/setup-emacs/blob/master/action.yml][setup-emacs/action.yml]]
-- [[https://github.com/conao3/setup-keg/blob/master/action.yml][setup-keg/action.yml]]
+Keg requires Emacs, so you'll need to set up Emacs first using [[https://github.com/purcell/setup-emacs][setup-emacs]].
 
-** Basic
 #+begin_src yaml
-  jobs:
-    build:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v1
-        - uses: purcell/setup-emacs@master
-          with:
-            version: '26.3'
-
-        - uses: conao3/setup-keg@master
-          with:
-            version: 'snapshot'
-
-        - name: Run tests
-          run: make test
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: purcell/setup-emacs@master
+        with:
+          version: '29.1'
+      - uses: conao3/setup-keg@master
+      - run: keg run test
 #+end_src
 
-This example is testing your package in below environment.
-- Emacs: ~26.3~
-- Keg: ~snapshot~ (HEAD)
+* Configuration
 
-** Matrix testing
+| Input     | Description                                      | Default      |
+|-----------+--------------------------------------------------+--------------|
+| =version= | Keg version to install (e.g., "0.8.4", "snapshot") | ="snapshot"= |
+
+See the [[https://github.com/keg/keg/releases][Keg releases page]] for available versions.
+
+* Examples
+
+** Testing with a specific Emacs version
+
 #+begin_src yaml
-  jobs:
-    build:
-      runs-on: ubuntu-latest
-      strategy:
-        matrix:
-          emacs_version:
-            - '26.1'
-            - '26.2'
-            - '26.3'
-            - 'snapshot'
-          keg_version:
-            - 'snapshot'
-      steps:
-        - uses: actions/checkout@v1
-        - uses: purcell/setup-emacs@master
-          with:
-            version: ${{ matrix.emacs_version }}
-
-        - uses: conao3/setup-keg@master
-          with:
-            version: 'snapshot'
-
-        - name: Run tests
-          run: make test
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: purcell/setup-emacs@master
+        with:
+          version: '29.1'
+      - uses: conao3/setup-keg@master
+        with:
+          version: 'snapshot'
+      - run: keg run test
 #+end_src
 
-This example is testing your package in below environment.
-- Emacs: ~26.1~, ~26.2~, ~26.3~
-- Keg: ~snapshot~ (HEAD)
+** Matrix testing across multiple Emacs versions
 
-** Simplest
 #+begin_src yaml
-  jobs:
-    build:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v1
-        - uses: purcell/setup-emacs@master
-          with:
-            version: '26.3'
-        - uses: conao3/setup-keg@master
-
-        - name: Run tests
-          run: make test
-
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        emacs_version:
+          - '28.2'
+          - '29.1'
+          - 'snapshot'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: purcell/setup-emacs@master
+        with:
+          version: ${{ matrix.emacs_version }}
+      - uses: conao3/setup-keg@master
+      - run: keg run test
 #+end_src
 
-This example is testing your package in below environment.
-- Emacs: ~26.3~
-- Keg: ~snapshot~ (HEAD)
+* Contributing
 
-* Information
-** Donation
-I love OSS and I am dreaming of working on it as *full-time* job.
+Contributions are welcome. Feel free to open an issue or submit a pull request.
 
-*With your support*, I will be able to spend more time at OSS!
+* License
 
-[[https://www.patreon.com/conao3][https://c5.patreon.com/external/logo/become_a_patron_button.png]]
+MIT License. See [[https://github.com/conao3/setup-keg/blob/master/LICENSE][LICENSE]] for details.
 
-** Community
-All feedback and suggestions are welcome!
-
-You can use github issues, but you can also use [[https://join.slack.com/t/conao3-support/shared_invite/enQtNjUzMDMxODcyMjE1LTA4ZGRmOWYwZWE3NmE5NTkyZjk3M2JhYzU2ZmRkMzdiMDdlYTQ0ODMyM2ExOGY0OTkzMzZiMTNmZjJjY2I5NTM][Slack]]
-if you want a more casual conversation.
-
-** Contribution
-Feel free to send PR!
-
-** License
-#+begin_example
-  MIT
-  Copyright (c) Naoya Yamashita - https://conao3.com
-  https://github.com/conao3/setup-keg/blob/master/LICENSE
-#+end_example
-
-** Author
-- Naoya Yamashita ([[https://github.com/conao3][conao3]])
-
-** Contributors
-- Not yet... Now send PR and add your name!!
+Copyright (c) Naoya Yamashita ([[https://github.com/conao3][conao3]])
