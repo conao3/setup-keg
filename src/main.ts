@@ -31,7 +31,7 @@ async function run() {
     // show Keg version
     await exec.exec('keg', ['version']);
   } catch (err) {
-    core.setFailed(err.message);
+    core.setFailed(err instanceof Error ? err.message : String(err));
   }
 }
 
